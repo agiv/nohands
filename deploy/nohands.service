@@ -1,0 +1,20 @@
+[Unit]
+Description=Голосовое управление компьютером
+Documentation=file://@CODE@/README.md
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=@DATA@/venv/bin/python @CODE@/voiced.py
+Restart=on-failure
+RestartSec=3
+Environment=PYTHONUNBUFFERED=1
+# журнал и всё, что создаёт демон, — только владельцу
+UMask=0077
+# vosk многословен в stderr — оставляем только свои сообщения
+StandardOutput=append:@DATA@/logs/voice.log
+StandardError=append:@DATA@/logs/voice.err
+
+[Install]
+WantedBy=graphical-session.target

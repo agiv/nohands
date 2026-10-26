@@ -1,0 +1,7 @@
+# Ставятся в venv с --system-site-packages: numpy и evdev берутся из
+# системных python3-numpy и python3-evdev (см. bootstrap.sh).
+vosk==0.3.45
+faster-whisper==1.2.1
+mediapipe==1.0.1
+opencv-python-headless==5.0.0.93
+piper-tts==1.8.0

@@ -1,0 +1,15 @@
+#!/bin/bash
+# Управление голосовым вводом
+case "${1:-status}" in
+  start)    systemctl --user start nohands;   echo "запущено" ;;
+  stop)     systemctl --user stop nohands;    echo "остановлено" ;;
+  restart)  systemctl --user restart nohands; echo "перезапущено" ;;
+  enable)   systemctl --user enable --now nohands; echo "включено и запущено при входе" ;;
+  disable)  systemctl --user disable --now nohands; echo "выключено" ;;
+  log)      tail -f -n 40 @DATA@/logs/voice.log ;;
+  err)      tail -n 60 @DATA@/logs/voice.err ;;
+  cmds)     @DATA@/venv/bin/python -c "
+import sys; sys.path.insert(0,'@CODE@')
+import voiced; print(voiced.phrase_list())" ;;
+  *)        systemctl --user status nohands --no-pager -n 15 ;;
+esac
